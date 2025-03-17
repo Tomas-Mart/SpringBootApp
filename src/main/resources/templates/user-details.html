@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{userDetails.title}">Детали пользователя</title>
+    <link rel="stylesheet" th:href="@{/resources/css/styles.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .user-details p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .user-details strong {
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        .error-message {
+            font-size: 1.2rem;
+            color: #dc3545;
+            background-color: rgba(220, 53, 69, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #e9ecef;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            background-color: #d4d8dc;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="#{userDetails.header}">Детали пользователя</h1>
+
+    <!-- Отображение общих ошибок -->
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <!-- Отображение деталей пользователя -->
+    <div th:if="${user}" class="user-details">
+        <p>
+            <strong th:text="#{userDetails.id}">ID:</strong>
+            <span th:text="${user.id}"></span>
+        </p>
+        <p>
+            <strong th:text="#{userDetails.name}">Имя:</strong>
+            <span th:text="${user.name}"></span>
+        </p>
+        <p>
+            <strong th:text="#{userDetails.email}">Email:</strong>
+            <span th:text="${user.email}"></span>
+        </p>
+        <p>
+            <strong th:text="#{userDetails.age}">Возраст:</strong>
+            <span th:text="${user.age}"></span>
+        </p>
+    </div>
+
+    <!-- Сообщение, если пользователь не найден -->
+    <div th:if="${user == null}" class="error-message">
+        <p th:text="#{userDetails.notFound}">Пользователь не найден</p>
+    </div>
+
+    <!-- Ссылка для возврата к списку пользователей -->
+    <a href="/users" class="btn-link" th:text="#{userDetails.backToList}">Вернуться к списку</a>
+</div>
+</body>
+</html>
