@@ -1,94 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title th:text="#{home.title}">Главная страница</title>
-    <link rel="stylesheet" th:href="@{/resources/css/styles.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: #fff;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        a {
-            text-decoration: none;
-            font-size: 1.2rem;
-            color: #fff;
-            background-color: #007bff;
-            padding: 15px 30px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            display: inline-block;
-            border: 2px solid transparent;
-        }
-
-        a:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        a:active {
-            transform: translateY(0);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-        .spacer {
-            height: 15cm;
-        }
-
-        .error-message {
-            font-size: 1.2rem;
-            color: #ff6b6b;
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Главная страница</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    .header {
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    .alert {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+    .success {
+      background: #dff0d8;
+      color: #3c763d;
+      border: 1px solid #d6e9c6;
+    }
+    .error {
+      background: #f2dede;
+      color: #a94442;
+      border: 1px solid #ebccd1;
+    }
+    .info-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f8f9fa;
+      border-radius: 4px;
+    }
+  </style>
 </head>
 <body>
-<div class="spacer"></div>
-
-<!-- Отображение общих ошибок -->
-<div th:if="${errorMessage}" class="error-message">
-    <p th:text="${errorMessage}"></p>
+<div class="header">
+  <h1>Система управления пользователями</h1>
+  <p>Добро пожаловать в систему управления пользователями</p>
 </div>
 
-<!-- Отображение ошибок валидации -->
-<div th:if="${errors}">
-    <div class="error-message">
-        <ul>
-            <li th:each="error : ${errors}" th:text="${error.defaultMessage}"></li>
-        </ul>
-    </div>
+<!-- Сообщения -->
+<div th:if="${param.success}" class="alert success"
+     th:text="${param.success[0]}"></div>
+<div th:if="${param.error}" class="alert error"
+     th:text="${param.error[0]}"></div>
+
+<div class="info-section">
+  <p>Всего пользователей в системе: <strong th:text="${userCount != null} ? ${userCount} : 0">0</strong></p>
 </div>
 
-<!-- Заголовок страницы -->
-<h1 th:text="#{home.welcome}">Добро пожаловать!</h1>
-
-<!-- Ссылка на список пользователей -->
-<div class="spacer"></div>
-<a href="/users" th:text="#{home.viewUsers}">Перейти к списку пользователей</a>
-<div class="spacer"></div>
+<a th:href="@{/users}" class="btn">Перейти к управлению пользователями</a>
 </body>
 </html>
